@@ -1,0 +1,3 @@
+# Disable CA1515 for API assembly. Controller should always be public
+[*.cs]
+dotnet_diagnostic.CA1515.severity = none

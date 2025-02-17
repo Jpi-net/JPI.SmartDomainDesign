@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </PropertyGroup>
+  
+  <!-- NuGet package reference specific to this project -->
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
+  </ItemGroup>
+
+  <!-- Project reference specific to this project -->
+  <ItemGroup>
+    <ProjectReference Include="..\JPI.SmartDomainDesign.Application\JPI.SmartDomainDesign.Application.csproj" />
+    <ProjectReference Include="..\JPI.SmartDomainDesign.Infrastructure\JPI.SmartDomainDesign.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <!-- Exclude appsettings.Development.json from being published -->
+  <ItemGroup>
+    <None Update="appsettings.Development.json">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+
+  <!--
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <PreBuildEvent>
+      powershell -ExecutionPolicy ByPass -File "$(SolutionDir)scripts\start-sqlserver-docker.ps1"
+    </PreBuildEvent>
+  </PropertyGroup>
+  -->
+
+</Project>
