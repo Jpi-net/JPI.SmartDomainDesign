@@ -1,0 +1,35 @@
+* text=auto
+
+# Treat all C# and configuration files as text
+*.cs diff=csharp
+*.csproj text
+*.sln text
+*.json text
+*.yaml text
+*.yml text
+*.xml text
+*.md text
+
+# Ensure line endings are LF
+*.sh text eol=lf
+*.ps1 text eol=lf
+
+# Prevent Git from modifying binary files
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.exe binary
+*.dll binary
+*.zip binary
+*.tar binary
+*.7z binary
+
+# Special handling for Windows
+*.bat text eol=crlf
+
+# Enforce commit message format
+[gitattributes]
+commit-msg regex="^.* \+semver:(none|patch|minor|major)$"
+
