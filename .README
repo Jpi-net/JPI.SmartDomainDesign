@@ -1,0 +1,112 @@
+# SmartDomainDesign
+
+## Description
+
+**SmartDomainDesign** is a .NET 9 application that follows the principles of **Clean Architecture** and **Domain-Driven Design (DDD)**. It serves as an example of a modular, maintainable, and testable enterprise application.
+
+## Goal
+
+The application retrieves all postal codes, localities, and geolocation data for Belgium using a **Hangfire job**. It also includes a script to launch a database with **Docker**.
+
+## Technologies
+
+- **.NET 9** (Core)
+- **ASP.NET Web API**
+- **Entity Framework Core**
+- **MediatR** (CQRS implementation)
+- **AutoMapper** (DTO & Domain Model Mapping)
+- **FluentValidation** (Input validation)
+- **Hangfire** (Background job processing)
+- **Docker & Docker Compose** (Deployment and integration testing)
+- **xUnit & Moq** (Unit and integration testing)
+
+## Architecture
+
+The project adheres to **Clean Architecture** principles and is structured into multiple distinct layers:
+
+### 1. **Domain**
+
+- Contains **business objects** (Aggregates, Entities, Value Objects)
+- Implements **DDD principles** (Encapsulation of business rules)
+- Manages **domain events**
+
+### 2. **Application**
+
+- Contains **use cases** (application services, MediatR handlers)
+- Defines **repository interfaces** (without dependencies on specific implementations)
+- Implements **CQRS** via MediatR
+
+### 3. **Infrastructure**
+
+- Implements persistence with **Entity Framework Core**
+- Defines **entity mappings** with AutoMapper
+- Manages external service configurations (e.g., APIs, storage, etc.)
+
+### 4. **Presentation** (API)
+
+- Provides **RESTful controllers** via **ASP.NET Web API**
+- Manages authentication and authorization
+- Implements **FluentValidation** for input validation
+
+## Installation and Execution
+
+### Prerequisites
+
+- [.NET SDK 9](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
+- [Docker](https://www.docker.com/get-started) (for database and integration testing)
+
+### Environment Setup
+
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/Jpi-net/JPI.SmartDomainDesign.git
+   cd JPI.SmartDomainDesign
+   ```
+2. Restore dependencies:
+   ```sh
+   dotnet restore
+   ```
+3. Start the database (SQL Server via Docker) using the provided script:
+   ```sh
+   scripts/start-sqlserver-docker.ps1
+   ```
+4. Apply database migrations:
+   ```sh
+   dotnet ef database update --project src/JPI.SmartDomainDesign.Infrastructure
+   ```
+5. Run the application:
+   ```sh
+   dotnet run --project src/JPI.SmartDomainDesign.Api
+   ```
+
+## Project Structure
+
+The project follows a structured layout:
+
+- `src/JPI.SmartDomainDesign.Api` - The API layer (Presentation)
+- `src/JPI.SmartDomainDesign.Application` - Application layer (Use Cases, CQRS)
+- `src/JPI.SmartDomainDesign.Domain` - Domain layer (Business Logic, Entities)
+- `src/JPI.SmartDomainDesign.Infrastructure` - Infrastructure layer (Persistence, External Services)
+- `tests/` - Unit and Integration tests
+- `scripts/` - Utility scripts (e.g., database startup)
+
+## Testing
+
+### Run Unit and Integration Tests
+
+```sh
+dotnet test
+```
+
+Tests are categorized into:
+
+- **UnitTests**: Test business objects and application services
+- **IntegrationTests**: Validate interactions with the database and APIs
+
+## License
+
+This project is licensed under the MIT License. See `LICENSE` for details.
+
+---
+
+🚀 **SmartDomainDesign** is designed to serve as an example and foundation for your own **.NET 9 Clean Architecture** applications!
