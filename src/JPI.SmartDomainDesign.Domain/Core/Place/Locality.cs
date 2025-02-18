@@ -1,4 +1,5 @@
-﻿using JPI.SmartDomainDesign.Domain.Exceptions.Place;
+﻿using JPI.SmartDomainDesign.Domain.Common;
+using JPI.SmartDomainDesign.Domain.Exceptions.Place;
 using JPI.SmartDomainDesign.Domain.Factories;
 using System.Text.RegularExpressions;
 
@@ -6,6 +7,10 @@ namespace JPI.SmartDomainDesign.Domain.Core.Place;
 
 public class Locality
 {
+    // Business rules
+    private static Regex NameRegex = new Regex(@"^[a-zA-Z\s\-.'À-ÖØ-öø-ÿ]+$");
+    private static int MinNameLenght = 3;
+
     private Locality (string name, Position position)
     {
         Name = NormalizeName(name);
@@ -26,17 +31,17 @@ public class Locality
                     {
                         throw new LocalityException("The locality name cannot be null, empty, or whitespace");
                     }
-                    handler.TryExecute(() =>
-                    {
-                        if (!Regex.IsMatch(name, @"^[a-zA-Z\s\-.'À-ÖØ-öø-ÿ]+$"))
-                        {
-                            throw new LocalityException("The locality name contains invalid characters. Only letters, spaces, hyphens (-), apostrophes ('), and periods (.) are allowed.");
-                        }
-                    });
                 });
                 handler.TryExecute(() =>
                 {
-                    if (name?.Trim().Length < 3)
+                    if (!NameRegex.IsMatchNotNull(name))
+                    {
+                        throw new LocalityException("The locality name contains invalid characters. Only letters, spaces, hyphens (-), apostrophes ('), and periods (.) are allowed.");
+                    }
+                });
+                handler.TryExecute(() =>
+                {
+                    if (name?.Trim().Length < MinNameLenght)
                     {
                         throw new LocalityException("The locality name must be at least 3 characters long after trimming");
                     }
@@ -46,7 +51,7 @@ public class Locality
 
     private static string NormalizeName(string name)
     {
-        if (string.IsNullOrWhiteSpace(name) || name.Length < 3)
+        if (string.IsNullOrWhiteSpace(name) || name.Length < MinNameLenght)
         {
             return name;
         }

@@ -6,7 +6,7 @@ namespace JPI.SmartDomainDesign.Domain.Core.Place;
 public record Latitude
     : SmartValueBase<decimal>
 {
-    //Business Rules
+    // Business Rules
     private const int Min = -90;
     private const int Max = 90;
 

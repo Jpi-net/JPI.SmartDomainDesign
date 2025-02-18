@@ -6,7 +6,7 @@ namespace JPI.SmartDomainDesign.Domain.Core.Place;
 public record Longitude
     : SmartValueBase<decimal>
 {
-    //Business Rules
+    // Business Rules
     private const decimal Min = -180;
     private const decimal Max = 180;
 
