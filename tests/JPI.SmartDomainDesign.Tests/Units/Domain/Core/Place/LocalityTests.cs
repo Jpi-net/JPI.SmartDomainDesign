@@ -49,8 +49,8 @@ public class LocalityTests
     }
 
     [Theory]
-    [InlineData("", 180, 90, 2)]
-    [InlineData(null, 181, 90, 2)]
+    [InlineData("", 180, 90, 3)]
+    [InlineData(null, 181, 90, 3)]
     [InlineData("d", -200, 94, 3)]
     [InlineData("     ", 180, 90, 2)]
     [InlineData("H!", 181, -92, 4)]

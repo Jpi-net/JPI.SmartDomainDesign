@@ -3,7 +3,7 @@ using JPI.SmartDomainDesign.Domain.Factories;
 
 namespace JPI.SmartDomainDesign.Domain.Core.Place;
 
-public class Position
+public record Position
 {
     private Position(Longitude longitude, Latitude latitude)
     {
